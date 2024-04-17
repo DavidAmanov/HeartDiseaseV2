@@ -6,13 +6,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import xgboost as xgb
+import joblib
 
 data = pd.read_csv('Data/Heart_disease_cleveland_new.csv')
 #see the head of data set 
 print(data.head())
 # all columns: age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target 
 # delete not valid columns: sex, thal, ca - define what columns are useless 
-cleanData = data.drop(['sex','cp','trestbps', 'restecg', 'exang', 'slope','oldpeak' , 'thal', 'ca'], axis=1)
+cleanData = data.drop(['fbs'], axis=1) 
 print(cleanData.head())
 
 # Split data for learning, testing, validation 
@@ -24,8 +25,8 @@ l1_lr_model = LogisticRegression(penalty='l1', solver='liblinear')
 l1_lr_model.fit(train_data.drop('target', axis=1), train_data['target'])
 l1_lr_predictions = l1_lr_model.predict(test_data.drop('target', axis=1))
 l1_lr_accuracy = accuracy_score(test_data['target'], l1_lr_predictions)
-print("Точность модели L1-LR:", l1_lr_accuracy)
-print("Отчет о классификации для L1-LR:")
+print("accuracy L1-LR:", l1_lr_accuracy)
+print("Classification Report for L1-LR:")
 print(classification_report(test_data['target'], l1_lr_predictions))
 print("-------------------------------------------------------")
 
@@ -34,8 +35,8 @@ knn_model = KNeighborsClassifier()
 knn_model.fit(train_data.drop('target', axis=1), train_data['target'])
 knn_predictions = knn_model.predict(test_data.drop('target', axis=1))
 knn_accuracy = accuracy_score(test_data['target'], knn_predictions)
-print("Точность модели KNN:", knn_accuracy)
-print("Отчет о классификации для KNN:")
+print("accuracy KNN:", knn_accuracy)
+print("Classification Report for KNN:")
 print(classification_report(test_data['target'], knn_predictions))
 print("-------------------------------------------------------")
 
@@ -56,6 +57,15 @@ dtest = xgb.DMatrix(test_data.drop('target', axis=1))
 xgb_predictions = xgb_model.predict(dtest)
 xgb_predictions = [1 if pred > 0.5 else 0 for pred in xgb_predictions]
 xgb_accuracy = accuracy_score(test_data['target'], xgb_predictions)
-print("Точность модели XGBoost:", xgb_accuracy)
-print("Отчет о классификации для XGBoost:")
+print("accuracy XGBoost:", xgb_accuracy)
+print("Classification Report for XGBoost:")
 print(classification_report(test_data['target'], xgb_predictions))
+
+# Сохранение модели L1-LR
+joblib.dump(l1_lr_model, 'your_path/l1_lr_model.pkl')
+
+# Сохранение модели KNN
+joblib.dump(knn_model, 'your_path/knn_model.pkl')
+
+# Сохранение модели XGBoost
+joblib.dump(xgb_model, 'your_path/xgb_model.pkl')
