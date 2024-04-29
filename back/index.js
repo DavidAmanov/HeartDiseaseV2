@@ -19,5 +19,5 @@ let run = net.toFunction();
 app.post('/api',(req, res)=>{
     //input POST data to model;
     let output = run({ age: req, sex: req, cp: req, trestbps: req, chol: req, fbs: req, restecg: req,
-         thalach: req, exang: req, oldpeak: req, slope: req, ca: req, thal: req, target: req});
+         thalach: req, exang: req, oldpeak: req, slope: req, ca: req, thal: req});
 })
