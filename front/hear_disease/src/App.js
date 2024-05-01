@@ -137,8 +137,18 @@ function App() {
   // A blood disorder called thalassemia:'',
 
   const {register, formState:{errors}, handleSubmit} = useForm();
-  const onSubmit = (data)=>{
+  const onSubmit = async (data)=>{
+    const response = await fetch('http://localhost:3001/api',{
+      method: 'POST',
+      mode:"cors",
+      cache: 'no-cache',
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
     console.log(data);
+    return response.json()
   }
   console.log(metricsArray[1].options)
   return (
