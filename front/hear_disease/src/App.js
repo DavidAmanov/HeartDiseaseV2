@@ -122,23 +122,36 @@ function App() {
   // "Blood sugar levels on fasting ", 'Result of electrocardiogram', 'Maximum heart rate achieved', 'Angina induced by exercise', 'Exercise induced ST-depression',
   // 'ST segment measured in terms of slope during peak exercise', 'The number of major vessels ', 'A blood disorder called thalassemia']
   //настроить правильную работу select option
+  //defaultValues:{
+  // Age: '', 
+  // Type of chest pain: '', 
+  // Level of blood pressure (mm/HG): '', 
+  // Serum cholesterol in mg/dl: '' 
+  // Blood sugar levels on fasting: "", 
+  // Result of electrocardiogram: '',
+  // Maximum heart rate achieved: '', 
+  // Angina induced by exercise: '', 
+  // Exercise induced ST-depression: '', 
+  // ST segment measured in terms of slope during peak exercise: '', 
+  // The number of major vessels: '', 
+  // A blood disorder called thalassemia:'',
 
   const {register, formState:{errors}, handleSubmit} = useForm();
   const onSubmit = (data)=>{
     console.log(data);
   }
-
+  console.log(metricsArray[1].options)
   return (
   <>
   <section>
     <form onSubmit={handleSubmit(onSubmit)} className='form'>
     {metricsArray.map((item, index) => (item.select===true ? 
-    <select>
-      {item.options.map((item)=>{
-        <option className="formItem" value={item}>{item}</option>
+    <select {...register(item.name, {required: true })} key={index} className="formItem">
+      {item.options.map((name, num)=>{
+        return <option key={num} value={name}>{name}</option>
       })}
     </select> :
-      <label key={index}>
+      <label key={index} >
         <input {...register(item.name, { required: true })} className="formItem" id={index} type={item.inputValue} placeholder={item.name} />
       </label>
     ))}

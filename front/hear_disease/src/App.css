@@ -1,12 +1,23 @@
-label {
-  display: flex; 
-  flex: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 5px; 
+input, select { 
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.buttonDiv{
-  display: flex;
-  justify-content: center;
+.form {
+  display: grid; 
+  place-items: center;
+}
+
+.formItem{
+  width: 600px;
+  margin: 5px;
+  padding: 5px;
+}
+
+
+button{
+  width: 600px;
+  margin: 5px;
+  padding: 5px;
 }
