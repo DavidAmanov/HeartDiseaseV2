@@ -146,11 +146,9 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-    console.log(data);
+    }).then(console.log(data))
     return response.json()
   }
-  console.log(metricsArray[1].options)
   return (
   <>
   <section>
