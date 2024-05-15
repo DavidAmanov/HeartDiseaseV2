@@ -54,7 +54,13 @@ function App() {
   {
     name:'Type of chest pain',
     select:true,
-    options:['typical angina', 'atypical angina', 'non-anginal pain', 'asymptomatic'],
+    options: [
+      { key: 'Type of chest pain...', value: 'Type of chest pain...' },
+      { key: 'typical angina', value: 0 },
+      { key: 'atypical angina', value: 1 },
+      { key: 'non-anginal pain', value: 2 },
+      { key: 'asymptomatic', value: 3 }
+    ],
     inputValue: 'number',
   },
   {
@@ -72,13 +78,13 @@ function App() {
   {
     name:'Blood sugar levels on fasting',
     select:true,
-    options:["True", "False"],
+    options:[ {key: 'Blood sugar levels on fasting...', value: 'Blood sugar levels on fasting'}, {key: "True", value: 0}, {key: "False", value: 1}],
     inputValue: 'number',
   }, 
   {
     name:'Result of electrocardiogram',
     select:true,
-    options:['normal', 'having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)', 'howing probable or definite left ventricular hypertrophy by Estes criteria'],
+    options:[{key: 'Result of electrocardiogram...', value:'Result of electrocardiogram' }, {key:'normal', value: 0}, {key:'having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)', value: 1}, {key: 'howing probable or definite left ventricular hypertrophy by Estes criteria', value: 2}],
     inputValue: 'number',
   },
   {
@@ -90,7 +96,7 @@ function App() {
   {
     name:'Angina induced by exercise',
     select:true,
-    options:["Yes", "No"],
+    options:[{key: 'Angina induced by exercise...', value:'Angina induced by exercise...'}, {key: "Yes", value: 0}, {key: "No", value: 1}],
     inputValue: 'number',
   },
   {
@@ -102,19 +108,19 @@ function App() {
   {
     name:'ST segment measured in terms of slope during peak exercise',
     select:true,
-    options:['upsloping', 'flat', 'downsloping'],
+    options:[{key: 'ST segment measured in terms of slope during peak exercise...', value: 'ST segment measured in terms of slope during peak exercise...'}, {key: 'upsloping', value: 0}, {key: 'flat', value: 1}, {key:'downsloping', value: 2}],
     inputValue: 'number',
   },
   {
     name:'The number of major vessels',
     select:true,
-    options:['0', '1', '2', '3'],
+    options:[{key: 'The number of major vessels...', value:'The number of major vessels...'}, {key:'0', value: 0}, {key:'1', value: 1}, {key:'2', value: 2}, {key:'3', value: 3}],
     inputValue: 'number',
   },
   {
     name:'A blood disorder called thalassemia',
     select:true,
-    options:['normal', 'fixed defect', 'reversable defect'],
+    options:[{key: 'A blood disorder called thalassemia...', value:'A blood disorder called thalassemia...' }, {key: 'normal', value: 0}, {key:'fixed defect', value: 1}, {key: 'reversable defect', value: 2}],
     inputValue: 'number',
   }
   ]
@@ -156,7 +162,7 @@ function App() {
     {metricsArray.map((item, index) => (item.select===true ? 
     <select {...register(item.name, {required: true })} key={index} className="formItem">
       {item.options.map((name, num)=>{
-        return <option key={num} value={name}>{name}</option>
+        return <option key={num} value={name.value} >{name.key}</option>
       })}
     </select> :
       <label key={index} >
@@ -173,3 +179,19 @@ function App() {
 }
 
 export default App;
+
+
+// {
+//   Age: '123',
+//   'Type of chest pain': 'typical angina',
+//   'Level of blood pressure (mm/HG)': '231',
+//   'Serum cholesterol in mg/dl': '213',
+//   'Blood sugar levels on fasting': 'True',
+//   'Result of electrocardiogram': 'normal',
+//   'Maximum heart rate achieved': '2131',
+//   'Angina induced by exercise': 'Yes',
+//   'Exercise induced ST-depression': '213',
+//   'ST segment measured in terms of slope during peak exercise': 'upsloping',
+//   'The number of major vessels': '0',
+//   'A blood disorder called thalassemia': 'normal'
+// } simple object
