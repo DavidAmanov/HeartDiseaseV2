@@ -16,18 +16,21 @@ app.post('/api',(req, res)=>{
     // let output = run({ age: req.Age, cp: req., trestbps: req, chol: req, fbs: req, restecg: req,
     //       thalach: req, exang: req, oldpeak: req, slope: req, ca: req, thal: req});
     const data = req.body;
-    console.log(data, "HI");
+    const jsonData = JSON.stringify(data);
+    jsonData.map((item)=>item.value.toFixed(2))
+    console.log(jsonData);
     
    
-    const options = {
+    let options = {
         mode: 'json',
  // Путь к интерпретатору Python
         scriptPath: 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/Model', // Путь к файлу с моделью
-        args: [JSON.stringify(data)]
+        args: [jsonData]
     };
     
-    PythonShell.run('runModels.py', options, function(res){
-        console.log(res)
+    PythonShell.run('runModels.py', options, (err, resPy)=>{
+        if(err) console.log(err, "1")
+        if(resPy) console.log(resPy, "2")
     })
     
 })
