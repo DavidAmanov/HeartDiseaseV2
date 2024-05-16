@@ -12,8 +12,8 @@ data = pd.read_csv('Data/Heart_disease_cleveland_new.csv')
 #see the head of data set 
 print(data.head())
 # all columns: age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target 
-# delete not valid columns: sex, thal, ca - define what columns are useless 
-cleanData = data.drop(['fbs'], axis=1) 
+# delete not valid columns: sex - define what columns are useless 
+cleanData = data.drop(['sex'], axis=1) 
 print(cleanData.head())
 
 # Split data for learning, testing, validation 
@@ -62,10 +62,10 @@ print("Classification Report for XGBoost:")
 print(classification_report(test_data['target'], xgb_predictions))
 
 # Сохранение модели L1-LR
-joblib.dump(l1_lr_model, 'your_path/l1_lr_model.pkl')
+joblib.dump(l1_lr_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave')
 
 # Сохранение модели KNN
-joblib.dump(knn_model, 'your_path/knn_model.pkl')
+joblib.dump(knn_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave')
 
 # Сохранение модели XGBoost
-joblib.dump(xgb_model, 'your_path/xgb_model.pkl')
+joblib.dump(xgb_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave')
