@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-model_path = 'modelsSave/knn_model.pkl'
+model_path = 'modelSave/knn_model.pkl'
 knn = joblib.load(model_path)
 
 feature_names = ['age', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']

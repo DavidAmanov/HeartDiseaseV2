@@ -13,12 +13,10 @@ app.use(express.json());
 
 app.post('/api',(req, res)=>{
     //input POST data to model;
-    // let output = run({ age: req.Age, cp: req., trestbps: req, chol: req, fbs: req, restecg: req,
-    //       thalach: req, exang: req, oldpeak: req, slope: req, ca: req, thal: req});
     const data = req.body;
-    const jsonData = JSON.stringify(data);
-    jsonData.map((item)=>item.value.toFixed(2))
-    console.log(jsonData);
+    let arr = Object.values(data)
+    console.log(arr);
+    const jsonData = JSON.stringify(arr);
     
    
     let options = {
@@ -28,10 +26,7 @@ app.post('/api',(req, res)=>{
         args: [jsonData]
     };
     
-    PythonShell.run('runModels.py', options, (err, resPy)=>{
-        if(err) console.log(err, "1")
-        if(resPy) console.log(resPy, "2")
-    })
+    PythonShell.run('runModels.py', options).then(mes=>{console.log(mes)})
     
 })
 
