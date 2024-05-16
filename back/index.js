@@ -26,7 +26,13 @@ app.post('/api',(req, res)=>{
         args: [jsonData]
     };
     
-    PythonShell.run('runModels.py', options).then(mes=>{console.log(mes)})
+    PythonShell.run('runModels.py', options).then(mes=>{
+        if(mes[0][0] === 1){
+            res.json("Go to doctor")
+        } else if(mes[0][0] === 0) {
+            res.json("You are okay")
+        }
+        console.log(mes[0][0])})
     
 })
 

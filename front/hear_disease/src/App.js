@@ -144,17 +144,23 @@ function App() {
 
   const {register, formState:{errors}, handleSubmit} = useForm();
   const onSubmit = async (data)=>{
-    const response = await fetch('http://localhost:3001/api',{
-      method: 'POST',
-      mode:"cors",
-      cache: 'no-cache',
-      headers:{
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then(console.log(data))
-    return response.json()
-  }
+    try {
+      const response = await fetch('http://localhost:3001/api', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json(); 
+      alert(result); 
+    } catch (error) {
+      console.error('Error:', error); 
+    }
+  };
   return (
   <>
   <section>
