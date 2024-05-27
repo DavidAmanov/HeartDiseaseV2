@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
-import xgboost as xgb
+from xgboost import XGBClassifier
 import joblib
 
 data = pd.read_csv('Data/Heart_disease_cleveland_new.csv')
@@ -41,7 +41,7 @@ print(classification_report(test_data['target'], knn_predictions))
 print("-------------------------------------------------------")
 
 # XGBoost model
-dtrain = xgb.DMatrix(train_data.drop('target', axis=1), label=train_data['target'])
+
 params = {
     'objective': 'binary:logistic',
     'eval_metric': 'logloss',
@@ -52,14 +52,14 @@ params = {
     'colsample_bytree': 0.8,
     'seed': 42
 }
-xgb_model = xgb.train(params, dtrain, num_boost_round=100)
-dtest = xgb.DMatrix(test_data.drop('target', axis=1))
-xgb_predictions = xgb_model.predict(dtest)
-xgb_predictions = [1 if pred > 0.5 else 0 for pred in xgb_predictions]
+xgb_model = XGBClassifier(**params, use_label_encoder=False)
+xgb_model.fit(train_data.drop('target', axis=1), train_data['target'])
+xgb_predictions = xgb_model.predict(test_data.drop('target', axis=1))
 xgb_accuracy = accuracy_score(test_data['target'], xgb_predictions)
-print("accuracy XGBoost:", xgb_accuracy)
-print("Classification Report for XGBoost:")
+print("accuracy XGB:", xgb_accuracy)
+print("Classification Report for XGB:")
 print(classification_report(test_data['target'], xgb_predictions))
+print("-------------------------------------------------------")
 
 # Сохранение модели L1-LR
 joblib.dump(l1_lr_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/l1_lr_model.pkl')
