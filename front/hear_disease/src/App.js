@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { useForm } from 'react-hook-form';
+
 
 /*
 https://archive.ics.uci.edu/dataset/45/heart+disease
@@ -31,17 +32,9 @@ ca: number of major vessels (0-3) colored by flourosopy
 
 thal: 1 = normal; 2 = fixed defect; 3 = reversable defect
 
-теперь для каждого значения нужно создать правильный импут, сейчас я реализую функцию map и массив строк, надо наверное создать массив объектов с соответствующими вариантами, где просто вводится значение
+теперь для каждого значения нужно создать правильный инпут, сейчас я реализую функцию map и массив строк, надо наверное создать массив объектов с соответствующими вариантами, где просто вводится значение
 а где например чекбокс с вариантами.
 
-metric={
-  name:string,
-  select:boolean,
-  if(seleect=true){
-  options:[string]},
-  input value: string/number, 
-
-}
 */ 
 function App() {
   const metricsArray = [
@@ -124,23 +117,13 @@ function App() {
     inputValue: 'number',
   }
   ]
-  // const metricsArray = ['Age', 'Type of chest pain', 'Level of blood pressure (mm/HG)', 'Serum cholesterol in mg/dl',
-  // "Blood sugar levels on fasting ", 'Result of electrocardiogram', 'Maximum heart rate achieved', 'Angina induced by exercise', 'Exercise induced ST-depression',
-  // 'ST segment measured in terms of slope during peak exercise', 'The number of major vessels ', 'A blood disorder called thalassemia']
-  //настроить правильную работу select option
-  //defaultValues:{
-  // Age: '', 
-  // Type of chest pain: '', 
-  // Level of blood pressure (mm/HG): '', 
-  // Serum cholesterol in mg/dl: '' 
-  // Blood sugar levels on fasting: "", 
-  // Result of electrocardiogram: '',
-  // Maximum heart rate achieved: '', 
-  // Angina induced by exercise: '', 
-  // Exercise induced ST-depression: '', 
-  // ST segment measured in terms of slope during peak exercise: '', 
-  // The number of major vessels: '', 
-  // A blood disorder called thalassemia:'',
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [result, setResult] = useState('')
+
+  const toggleModal = () =>{
+    setModalIsOpen(!modalIsOpen)
+  }
 
   const {register, formState:{errors}, handleSubmit} = useForm();
   const onSubmit = async (data)=>{
@@ -156,7 +139,9 @@ function App() {
       });
   
       const result = await response.json(); 
-      alert(result); 
+      console.log(result)
+      setResult(result.result)
+      toggleModal()
     } catch (error) {
       console.error('Error:', error); 
     }
@@ -172,7 +157,7 @@ function App() {
       })}
     </select> :
       <label key={index} >
-        <input {...register(item.name, { required: true })} className="formItem" id={index} type={item.inputValue} placeholder={item.name} />
+        <input {...register(item.name, { required: true })} className="formItem" id={index} type={item.inputValue} placeholder={item.name} step={0.01}/>
       </label>
     ))}
     <div className='buttonDiv'>
@@ -180,6 +165,12 @@ function App() {
     </div>
     </form>
   </section>
+  {modalIsOpen && (
+    <div>
+      <h1>{result}</h1>
+      <button onClick={toggleModal}>Close</button>
+    </div>
+  )}
   </>
   );
 }
@@ -187,17 +178,17 @@ function App() {
 export default App;
 
 
-// {
-//   Age: '123',
-//   'Type of chest pain': 'typical angina',
-//   'Level of blood pressure (mm/HG)': '231',
-//   'Serum cholesterol in mg/dl': '213',
-//   'Blood sugar levels on fasting': 'True',
-//   'Result of electrocardiogram': 'normal',
-//   'Maximum heart rate achieved': '2131',
-//   'Angina induced by exercise': 'Yes',
-//   'Exercise induced ST-depression': '213',
-//   'ST segment measured in terms of slope during peak exercise': 'upsloping',
-//   'The number of major vessels': '0',
-//   'A blood disorder called thalassemia': 'normal'
-// } simple object
+/*
+63
+typical
+145
+233
+true
+howing probable 
+150
+No
+2,3
+upsloping
+0
+fixed defect
+ */ 

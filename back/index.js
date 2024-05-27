@@ -27,12 +27,12 @@ app.post('/api',(req, res)=>{
     };
     
     PythonShell.run('runModels.py', options).then(mes=>{
-        if(mes[0][0] === 1){
-            res.json("Go to doctor")
-        } else if(mes[0][0] === 0) {
-            res.json("You are okay")
-        }
-        console.log(mes[0][0])})
+        let responseObj = {
+            result: mes[0][0] === 1 ? "Go to doctor" : "You are okay",
+            details: mes[0]
+        };
+        res.json(responseObj);
+        console.log(responseObj)})
     
 })
 
