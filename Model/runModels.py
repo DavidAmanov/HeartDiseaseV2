@@ -24,11 +24,11 @@ result_l1_lr = model_l1_lr.predict(unseen_df)
 probabilities_l1_lr = model_l1_lr.predict_proba(unseen_df)
 
 #xgb_model
-unseen_df = unseen_df.astype(float)
+unseen_xgb = unseen_df.astype(float)
 model_path_xgb = 'modelSave/xgb_model.pkl'
 model_xgb = joblib.load(model_path_xgb) 
-result_xgb = model_xgb.predict(unseen_df)
-probabilities_xgb = model_xgb.predict_proba(unseen_df)
+result_xgb = model_xgb.predict(unseen_xgb)
+probabilities_xgb = model_xgb.predict_proba(unseen_xgb)
 
 
 predicted_json = json.dumps({

@@ -140,7 +140,7 @@ function App() {
   
       const result = await response.json(); 
       console.log(result)
-      setResult(result.result)
+      setResult(result)
       toggleModal()
     } catch (error) {
       console.error('Error:', error); 
@@ -167,7 +167,13 @@ function App() {
   </section>
   {modalIsOpen && (
     <div>
-      <h1>{result}</h1>
+      <h1>Result</h1>
+      <h2>{result.result_knn}</h2>
+      <h2>{result.probabilities_knn}</h2>
+      <h2>{result.result_l1}</h2>
+      <h2>{result.probabilities_l1}</h2>
+      <h2>{result.result_xgb}</h2>
+      <h2>{result.probabilities_xgb}</h2>
       <button onClick={toggleModal}>Close</button>
     </div>
   )}
@@ -178,7 +184,19 @@ function App() {
 export default App;
 
 
+// result_kkn: mes[0].prediction_knn[0],
+//             probabilities_knn: mes[0].probabilities_knn[0][0],
+//             result_l1: mes[0].prediction_l1_lr[0],
+//             probabilities_l1: mes[0].probabilities_l1_lr[0][0],
+//             result_xgb: mes[0].prediction_xgb[0],
+//             probabilities_xgb: mes[0].probabilities_xgb[0][0]
+
+
+
+
 /*
+test data
+target value - 0
 63
 typical
 145

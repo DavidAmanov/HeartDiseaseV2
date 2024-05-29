@@ -27,13 +27,17 @@ app.post('/api',(req, res)=>{
     };
     
     PythonShell.run('runModels.py', options).then(mes=>{
-        // let responseObj = {
-        //     result: mes[0].prediction[0] === 1 ? "Go to doctor" : "You are okay",
-        //     youHaveProblemAcc: mes[0].probabilities[0][1]*100 + '%',
-        //     youDontHaveProblemAcc: mes[0].probabilities[0][0]*100 + '%'
-        // };
-        // res.json(responseObj);
-        console.log(mes)})
+        let responseObj = {
+            result_knn: mes[0].prediction_knn[0],
+            probabilities_knn: mes[0].probabilities_knn[0][0],
+            result_l1: mes[0].prediction_l1_lr[0],
+            probabilities_l1: mes[0].probabilities_l1_lr[0][0],
+            result_xgb: mes[0].prediction_xgb[0],
+            probabilities_xgb: mes[0].probabilities_xgb[0][0],
+        };
+        res.json(responseObj);
+        console.log(responseObj)
+    })
     
 })
 
