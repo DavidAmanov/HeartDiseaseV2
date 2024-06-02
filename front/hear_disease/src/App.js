@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import { useForm } from 'react-hook-form';
 import {useSelector} from "react-redux";
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
   };
   return (
     <>
+    <Header />
   <section>
     <form onSubmit={handleSubmit(onSubmit)} className='form'>
     {formFields.map((item, index) => (item.select===true ? 
@@ -65,6 +68,7 @@ function App() {
       <button onClick={toggleModal}>Close</button>
     </div>
   )}
+  <Footer />
   </>
   );
 }
