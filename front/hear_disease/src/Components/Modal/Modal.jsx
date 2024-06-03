@@ -15,12 +15,12 @@ const Modal = ({result, toggleModal}) => {
                 </div>
                 <div className="result">
                     <h1>Results:</h1>
-                    <h2>Model Knn:</h2>
-                    <span>The patient may have heart problems with the probability {result.probabilities_knn}%</span>
-                    <h2>Model L1LR:</h2>
-                    <span>The patient may have heart problems with the probability {result.probabilities_l1.toFixed(3)}%</span>
-                    <h2>Model XGB:</h2>
-                    <span>The patient may have heart problems with the probability {result.probabilities_xgb.toFixed(3)}%</span>
+                    <h2>Model Knn: {result.result_knn}</h2>
+                    <span>Reliability of the results {result.probabilities_knn.toFixed(1)}%</span>
+                    <h2>Model L1LR: {result.result_l1}</h2>
+                    <span>Reliability of the results {result.probabilities_l1.toFixed(1)}%</span>
+                    <h2>Model XGB: {result.result_xgb}</h2>
+                    <span>Reliability of the results {result.probabilities_xgb.toFixed(1)}%</span>
                     <div className="conslusionBlock">
                         <h1>CONCLUSION</h1>
                         <span>{result.conclusion}</span>
