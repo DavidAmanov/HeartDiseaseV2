@@ -21,8 +21,7 @@ app.post('/api',(req, res)=>{
    
     let options = {
         mode: 'json',
- // Путь к интерпретатору Python
-        scriptPath: 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/Model', // Путь к файлу с моделью
+        scriptPath: 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/Model', 
         args: [jsonData]
     };
     

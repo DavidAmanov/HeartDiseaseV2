@@ -61,11 +61,11 @@ print("Classification Report for XGB:")
 print(classification_report(test_data['target'], xgb_predictions))
 print("-------------------------------------------------------")
 
-# Сохранение модели L1-LR
+# Save model L1-LR
 joblib.dump(l1_lr_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/l1_lr_model.pkl')
 
-# Сохранение модели KNN
+# Save model KNN
 joblib.dump(knn_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/knn_model.pkl')
 
-# Сохранение модели XGBoost
+# Save model XGBoost
 joblib.dump(xgb_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/xgb_model.pkl')
