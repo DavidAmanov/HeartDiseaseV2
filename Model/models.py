@@ -5,15 +5,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
-import xgboost as xgb
+from xgboost import XGBClassifier
 import joblib
 
 data = pd.read_csv('Data/Heart_disease_cleveland_new.csv')
 #see the head of data set 
 print(data.head())
 # all columns: age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal,target 
-# delete not valid columns: sex, thal, ca - define what columns are useless 
-cleanData = data.drop(['fbs'], axis=1) 
+# delete not valid columns: sex - define what columns are useless 
+cleanData = data.drop(['sex'], axis=1) 
 print(cleanData.head())
 
 # Split data for learning, testing, validation 
@@ -41,7 +41,7 @@ print(classification_report(test_data['target'], knn_predictions))
 print("-------------------------------------------------------")
 
 # XGBoost model
-dtrain = xgb.DMatrix(train_data.drop('target', axis=1), label=train_data['target'])
+
 params = {
     'objective': 'binary:logistic',
     'eval_metric': 'logloss',
@@ -52,20 +52,20 @@ params = {
     'colsample_bytree': 0.8,
     'seed': 42
 }
-xgb_model = xgb.train(params, dtrain, num_boost_round=100)
-dtest = xgb.DMatrix(test_data.drop('target', axis=1))
-xgb_predictions = xgb_model.predict(dtest)
-xgb_predictions = [1 if pred > 0.5 else 0 for pred in xgb_predictions]
+xgb_model = XGBClassifier(**params, use_label_encoder=False)
+xgb_model.fit(train_data.drop('target', axis=1), train_data['target'])
+xgb_predictions = xgb_model.predict(test_data.drop('target', axis=1))
 xgb_accuracy = accuracy_score(test_data['target'], xgb_predictions)
-print("accuracy XGBoost:", xgb_accuracy)
-print("Classification Report for XGBoost:")
+print("accuracy XGB:", xgb_accuracy)
+print("Classification Report for XGB:")
 print(classification_report(test_data['target'], xgb_predictions))
+print("-------------------------------------------------------")
 
 # Сохранение модели L1-LR
-joblib.dump(l1_lr_model, 'your_path/l1_lr_model.pkl')
+joblib.dump(l1_lr_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/l1_lr_model.pkl')
 
 # Сохранение модели KNN
-joblib.dump(knn_model, 'your_path/knn_model.pkl')
+joblib.dump(knn_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/knn_model.pkl')
 
 # Сохранение модели XGBoost
-joblib.dump(xgb_model, 'your_path/xgb_model.pkl')
+joblib.dump(xgb_model, 'C:/Users/David/Desktop/dev/react-tutorial/HeartDiseaseV2/modelSave/xgb_model.pkl')

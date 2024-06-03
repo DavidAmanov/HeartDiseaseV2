@@ -1,0 +1,55 @@
+.itemContainer{
+    min-height: 136px;
+    max-height: 203px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 2%;
+    animation: slideIn 0.5s forwards;
+}
+  
+.itemTitle{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 2%;
+}
+
+.field{
+    width: 100%;
+}
+
+
+.formItem{
+    width: 100%;
+    box-sizing: border-box;
+    height: 80px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 14px;
+    outline: none;
+    background-color: #E8E8E8;
+    font-size: 24px;
+    color: #AAA8A8;
+    font-weight: normal;
+}
+
+input::placeholder { 
+    color: #AAA8A8;
+}
+
+
+
+  
+@keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+}
