@@ -27,16 +27,32 @@ app.post('/api',(req, res)=>{
     };
     
     PythonShell.run('runModels.py', options).then(mes=>{
-        let responseObj = {
-            result_knn: mes[0].prediction_knn[0],
-            probabilities_knn: mes[0].probabilities_knn[0][0],
-            result_l1: mes[0].prediction_l1_lr[0],
-            probabilities_l1: mes[0].probabilities_l1_lr[0][0],
-            result_xgb: mes[0].prediction_xgb[0],
-            probabilities_xgb: mes[0].probabilities_xgb[0][0],
-        };
-        res.json(responseObj);
-        console.log(responseObj)
+        if(mes[0].prediction_knn[0] === 1 || mes[0].prediction_l1_lr[0] === 1 || mes[0].prediction_xgb[0] === 1){
+            let responseObj = {
+                result_knn: mes[0].prediction_knn[0],
+                probabilities_knn: mes[0].probabilities_knn[0][0],
+                result_l1: mes[0].prediction_l1_lr[0],
+                probabilities_l1: mes[0].probabilities_l1_lr[0][0],
+                result_xgb: mes[0].prediction_xgb[0],
+                probabilities_xgb: mes[0].probabilities_xgb[0][0],
+                conclusion: 'You need to pay attention to the heart',
+            };
+            res.json(responseObj);
+            console.log(mes)
+        } else {
+            let responseObj = {
+                result_knn: mes[0].prediction_knn[0],
+                probabilities_knn: mes[0].probabilities_knn[0][0],
+                result_l1: mes[0].prediction_l1_lr[0],
+                probabilities_l1: mes[0].probabilities_l1_lr[0][0],
+                result_xgb: mes[0].prediction_xgb[0],
+                probabilities_xgb: mes[0].probabilities_xgb[0][0],
+                conclusion: 'Everything is looking fine',
+            };
+            res.json(responseObj);
+            console.log(mes)
+
+        }
     })
     
 })

@@ -4,6 +4,10 @@ import { useForm } from 'react-hook-form';
 import {useSelector} from "react-redux";
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
+import Description from './Components/Description/Description';
+import Ellipse from './img/Ellipse 1.svg'
+import FormFiled from './Components/FormField/FormField';
+import Modal from './Components/Modal/Modal'
 
 
 function App() {
@@ -37,39 +41,28 @@ function App() {
     }
   };
   return (
-    <>
-    <Header />
-  <section>
-    <form onSubmit={handleSubmit(onSubmit)} className='form'>
-    {formFields.map((item, index) => (item.select===true ? 
-    <select {...register(item.name, {required: true })} key={index} className="formItem">
-      {item.options.map((name, num)=>{
-        return <option key={num} value={name.value} >{name.key}</option>
-      })}
-    </select> :
-      <label key={index} >
-        <input {...register(item.name, { required: true })} className="formItem" id={index} type={item.inputValue} placeholder={item.name} step={0.01}/>
-      </label>
-    ))}
-    <div className='buttonDiv'>
-      <button type='submit'>submit</button>
-    </div>
-    </form>
-  </section>
-  {modalIsOpen && (
     <div>
-      <h1>Result</h1>
-      <h2>{result.result_knn}</h2>
-      <h2>{result.probabilities_knn}</h2>
-      <h2>{result.result_l1}</h2>
-      <h2>{result.probabilities_l1}</h2>
-      <h2>{result.result_xgb}</h2>
-      <h2>{result.probabilities_xgb}</h2>
-      <button onClick={toggleModal}>Close</button>
+    <Header />
+    <div className='page'>
+      <Description />
+      <section>
+        <div className='formTitle'>
+          <h1>HEART DISEASE PREDICTION MODEL</h1>
+          <span>Fill gaps to get result</span>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className='form'>
+          {formFields.map((item, index) => (
+            <FormFiled {...register(item.name, {required: true })} key={index} item={item} index={index} Ellipse={Ellipse}/>
+          ))}
+          <div className='buttonDiv'>
+            <button type='submit'>Submit</button>
+          </div>
+        </form>
+      </section>
+      {modalIsOpen && (<Modal result={result} toggleModal={toggleModal} className="modal"/>)}
     </div>
-  )}
-  <Footer />
-  </>
+    <Footer />
+  </div>
   );
 }
 
@@ -91,6 +84,43 @@ upsloping
 0
 fixed defect
 */ 
+
+
+
+
+{/* <form onSubmit={handleSubmit(onSubmit)} className='form'>
+          {formFields.map((item, index) => (item.select===true ? 
+          <div key={index} className="itemContainer">
+            <div className='itemTitle'>
+              <text>{item.name}</text>
+              <img src={Ellipse} alt='ellipse'/>
+            </div>
+            <select {...register(item.name, {required: true })} className="formItem">
+              {item.options.map((name, num)=>{
+                return <option key={num} value={name.value} >{name.key}</option>
+              })}
+            </select> 
+          </div> :
+            <label key={index} className="itemContainer">
+              <div className='itemTitle'>
+                <span>{item.name}</span>
+                <img src={Ellipse} alt='ellipse' onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}/>
+              </div>
+              <input {...register(item.name, { required: true })} className="formItem" id={index} type={item.inputValue} placeholder="Write your result" step={0.01}/>
+              {isHovered && <AnnotationInput annotation={item.annotation}/>}
+            </label>
+          ))}
+          <div className='buttonDiv'>
+            <button type='submit'>Submit</button>
+          </div>
+        </form> */}
+
+
+
+
+
+
 
 
 /*
