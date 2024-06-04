@@ -68,20 +68,5 @@ function App() {
 
 export default App;
 
-/*
-test data
-target value - 0
-63
-typical
-145
-233
-true
-howing probable 
-150
-No
-2,3
-upsloping
-0
-fixed defect
-*/ 
+
 
