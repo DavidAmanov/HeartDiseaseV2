@@ -57,7 +57,11 @@
 
 .picture{
     grid-column-start: 2;
- 
+}
+
+.picture img{
+    width: 400px;
+    border-radius: 50px;
 }
 
 .result{

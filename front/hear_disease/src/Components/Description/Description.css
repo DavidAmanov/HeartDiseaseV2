@@ -17,6 +17,11 @@
     animation: slideIn 1s forwards;
 }
 
+.title img{
+    width: 600px;
+    border-radius: 50px;
+}
+
 .title span {
     display: flex;
     align-items: center;

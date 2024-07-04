@@ -1,6 +1,7 @@
 import React from "react";
 import './Modal.css'
-import Image2 from '../../img/Image 2.svg'
+import Image2 from '../../img/meduzy-priroda-fon.jpg'
+
 
 const Modal = ({result, toggleModal}) => {
     return(

@@ -1,5 +1,5 @@
 import React from "react";
-import Image from '../../img/Image.svg';
+import Image from '../../img/4-Critical-Numbers-All-Women-Need-to-Know-for-a-Healthy-Heart.jpg';
 import './Description.css'
 
 const Description = () => {
